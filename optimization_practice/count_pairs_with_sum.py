@@ -91,3 +91,43 @@ the overall algorithm runs in O(n).
 =================================================
 
 """
+
+
+def count_pairs_brute(nums, target):
+    count = 0
+    for i in range(len(nums)):
+        for j in range(i + 1, len(nums)):
+            if nums[i] + nums[j] == target:
+                count += 1
+    return count
+
+
+def count_pairs_fast(nums, target):
+    freq = {}
+    count = 0
+    
+    for num in nums:
+        complement = target - num
+        if complement in freq:
+            count += freq[complement]
+        freq[num] = freq.get(num, 0) + 1
+    
+    return count
+
+
+# Test Case 1
+nums1 = [1, 5, 7, -1, 5]
+target1 = 6
+    
+print(f"Input: nums = {nums1}, target = {target1}")
+print(f"Brute Force: {count_pairs_brute(nums1, target1)}   # O(n^2)")
+print(f"Optimized:   {count_pairs_fast(nums1, target1)}   # O(n)")
+print()
+    
+# Test Case 2
+nums2 = [1, 1, 1, 1]
+target2 = 2
+    
+print(f"Input: nums = {nums2}, target = {target2}")
+print(f"Brute Force: {count_pairs_brute(nums2, target2)}   # O(n^2)")
+print(f"Optimized:   {count_pairs_fast(nums2, target2)}   # O(n)")
